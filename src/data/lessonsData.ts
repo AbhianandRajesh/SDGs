@@ -18,6 +18,7 @@ export interface Lesson {
   themeColor: string;
   badge: string;
   summary: string;
+  brief: string; // User-requested concise brief for each lesson
   sections: {
     title: string;
     content: string;
@@ -98,30 +99,31 @@ export const LESSONS_DATA: Lesson[] = [
     slug: 'spike-in-global-temperature',
     title: 'Lesson 1: Spike in Global Temperature',
     shortTitle: 'Global Temperature Spike',
-    subtitle: 'Tracking thermal anomalies, pre-industrial baselines, and planetary energy imbalance.',
+    subtitle: 'Tracking sudden thermal anomalies, contributing causes, and planetary energy imbalance.',
     readTime: '8 min read',
     level: 'Foundational',
     themeColor: '#087FCE',
     badge: 'Lesson 01',
-    summary: 'The Earth is warming at an unprecedented rate in human history. Global mean surface temperatures have surged by +1.2°C to +1.3°C above pre-industrial levels, driven by the atmospheric buildup of heat-trapping greenhouse gases.',
+    summary: 'A spike in temperature refers to a sudden or unusual rise in the Earth’s or a region’s temperature over a short period. The main causes include global warming, greenhouse gas emissions, deforestation, urbanisation, and increased industrial activity.',
+    brief: 'A spike in temperature refers to a sudden or unusual rise in the Earth’s or a region’s temperature over a short period. The main causes include global warming, greenhouse gas emissions, deforestation, urbanisation, and increased industrial activity. Other contributing factors include vehicle emissions, burning of fossil fuels, heat-absorbing concrete surfaces, reduced vegetation, and changes in weather patterns. These temperature spikes can lead to heatwaves, water shortages, crop damage, and health risks, highlighting the need for cleaner energy and sustainable environmental practices.',
     sections: [
       {
-        title: '1. The Unprecedented Thermal Acceleration',
-        content: 'Since the onset of the First Industrial Revolution (~1850), human industrial, energy, and transportation activities have steadily altered the chemical composition of the atmosphere. According to NASA GISS, NOAA, and the Copernicus Climate Change Service, the last decade has been the warmest on geological record. Nine of the top ten warmest years ever measured have occurred since 2014.',
+        title: '1. Defining Temperature Spikes & Core Mechanisms',
+        content: 'A spike in temperature describes an abrupt, abnormal acceleration in thermal averages over short geological or seasonal periods. While natural cycles (such as El Niño Southern Oscillation) cause localized oscillations, human anthropogenic activities have produced an unbroken decade of unprecedented baseline spikes worldwide.',
         keyPoints: [
-          'Global average temperatures have exceeded +1.2°C above the 1850–1900 baseline.',
-          'Ocean heat content (OHC) in the upper 2,000 meters has shattered previous records consecutively.',
-          'Arctic warming rate is approximately 3 to 4 times faster than the global planetary average (Arctic Amplification).'
+          'Global average temperatures have surged by +1.2°C to +1.3°C above the pre-industrial benchmark (1850–1900).',
+          'Nine of the top ten warmest years in instrumental history have occurred since 2014.',
+          'More than 90% of Earth’s surplus thermodynamic energy is absorbed into the world’s oceans, delaying immediate continental frying but storing immense heat energy.'
         ],
         callout: 'Did you know? Even a fractional 0.5°C global increase represents an immense amount of stored energy—equivalent to billions of Hiroshima-sized atomic detonations absorbed into the oceans and atmosphere.'
       },
       {
-        title: '2. Planetary Energy Imbalance (PEI)',
-        content: 'The Earth remains in a state of positive radiative imbalance. Our planet is currently absorbing roughly 0.8 to 1.0 Watts per square meter more solar energy than it radiates back out into cold space. Over 90% of this surplus thermodynamic energy is absorbed directly into the world’s oceans, elevating sea surface temperatures and driving marine heatwaves.',
+        title: '2. Major Anthropogenic Drivers & Cascading Impacts',
+        content: 'The primary catalysts include fossil fuel combustion for electricity and transport, agricultural methane, and severe deforestation. Concurrently, rapid urbanisation creates Urban Heat Islands (UHI) where dark asphalt and concrete absorb thermal energy, triggering severe heatwaves, water shortages, crop failures, and acute health emergencies.',
         keyPoints: [
-          'Positive radiative forcing traps heat within the troposphere.',
-          'The upper ocean acts as a massive thermal battery, postponing immediate terrestrial heating but causing long-term thermal inertia.',
-          'Coral reef bleaching, thermal water expansion, and ice shelf melting are direct thermodynamic consequences.'
+          'Industrial and vehicular emissions continuously increase radiative forcing in the troposphere.',
+          'Loss of photosynthetic vegetation strips Earth of natural evaporative cooling and carbon sequestration.',
+          'Immediate risks include lethal heat stress, drying municipal reservoirs, agricultural crop damage, and ecosystem disruption.'
         ]
       }
     ],
@@ -133,314 +135,316 @@ export const LESSONS_DATA: Lesson[] = [
     quiz: [
       {
         id: 1,
-        question: 'By approximately how much has the Earth’s average surface temperature increased compared to pre-industrial (1850–1900) levels?',
+        question: 'What does a "spike in temperature" refer to?',
         options: [
-          'A) Exactly 0.2°C',
-          'B) Between +1.2°C and +1.3°C',
-          'C) Over 5.5°C',
-          'D) No measurable change has been recorded'
+          'A) A regular seasonal winter snowstorm',
+          'B) A sudden or unusual rise in the Earth’s or a region’s temperature over a short period',
+          'C) Permanent cooling of the lower atmosphere',
+          'D) A decrease in solar radiation reaching the equator'
         ],
         correctAnswer: 1,
-        explanation: 'Global surface temperature has risen by approximately +1.2°C to +1.3°C above pre-industrial averages, verified by NASA, NOAA, and the IPCC.',
+        explanation: 'A spike in temperature refers to a sudden or unusual rise in the Earth’s or a region’s temperature over a short period, driven by greenhouse gases, urbanisation, and fossil emissions.',
         points: 4
       },
       {
         id: 2,
-        question: 'Where is more than 90% of Earth’s surplus heat energy currently being absorbed?',
+        question: 'Which of the following are primary causes of sudden temperature spikes?',
         options: [
-          'A) In the world’s oceans',
-          'B) In outer desert sands only',
-          'C) In the stratosphere',
-          'D) Directly in urban concrete buildings'
+          'A) Global warming, greenhouse gas emissions, deforestation, and industrial activity',
+          'B) Planting too many native trees in river valleys',
+          'C) Using solar panels and wind turbines exclusively',
+          'D) The natural orbit of the Moon around Earth'
         ],
         correctAnswer: 0,
-        explanation: 'The world’s oceans absorb more than 90% of the planetary excess heat energy, preventing immediate catastrophic atmospheric spikes but causing marine heatwaves and sea level rise.',
+        explanation: 'The primary causes include global warming, greenhouse gas emissions, deforestation, urbanisation, and increased industrial activity.',
         points: 4
       },
       {
         id: 3,
-        question: 'What is the phenomenon called where the Polar Arctic warms at triple or quadruple the global rate?',
+        question: 'How do heat-absorbing concrete surfaces and reduced vegetation contribute to temperature spikes in cities?',
         options: [
-          'A) Polar Stagnation',
-          'B) Arctic Amplification',
-          'C) Equatorial Convergence',
-          'D) Permafrost Freezing'
+          'A) They cool cities down by 10 degrees at night',
+          'B) They absorb solar heat during the day and re-radiate it, causing Urban Heat Islands',
+          'C) They cause spontaneous snowfall',
+          'D) They stop carbon dioxide from entering the atmosphere'
         ],
         correctAnswer: 1,
-        explanation: 'Arctic Amplification occurs because reflective white sea ice melts, exposing dark seawater that absorbs more sunlight, creating a rapid feedback loop.',
+        explanation: 'Concrete, asphalt, and reduced greenery trap solar radiation and re-radiate thermal energy, creating intense heat islands and amplifying local temperature spikes.',
         points: 4
       },
       {
         id: 4,
-        question: 'Which international scientific consensus target aims to limit long-term global warming to prevent runaway tipping points?',
+        question: 'What are direct dangerous consequences of severe temperature spikes?',
         options: [
-          'A) 5.0°C Celsius limit',
-          'B) 1.5°C (with a ceiling of 2.0°C) above pre-industrial levels',
-          'C) Zero degrees Celsius total',
-          'D) 10.0°C limit'
+          'A) More freshwater in all desert lakes',
+          'B) Heatwaves, water shortages, crop damage, and human health risks',
+          'C) Immediate drop in global sea levels',
+          'D) Instant replenishment of alpine glaciers'
         ],
         correctAnswer: 1,
-        explanation: 'The 2015 Paris Agreement established the international goal of keeping warming well below 2.0°C while pursuing strict efforts to limit it to 1.5°C.',
+        explanation: 'Temperature spikes trigger extreme heatwaves, dry out water reservoirs, destroy agricultural yields, and pose severe cardiovascular and heatstroke risks.',
         points: 4
       },
       {
         id: 5,
-        question: 'What happens to the global energy balance when Earth absorbs more solar energy than it radiates back into space?',
+        question: 'Where is more than 90% of Earth’s planetary surplus heat currently being absorbed?',
         options: [
-          'A) Negative radiative forcing (cooling)',
-          'B) Positive planetary energy imbalance (net warming)',
-          'C) Total cessation of weather patterns',
-          'D) Spontaneous cooling of the equator'
+          'A) In outer desert sand dunes only',
+          'B) In the world’s oceans',
+          'C) Inside deep underground subway tunnels',
+          'D) In the upper stratosphere'
         ],
         correctAnswer: 1,
-        explanation: 'A positive energy imbalance means incoming solar radiation exceeds outgoing infrared radiation, causing thermal accumulation and progressive global heating.',
+        explanation: 'The oceans absorb more than 90% of the planetary excess heat energy, preventing immediate atmospheric spikes but driving marine heatwaves and sea level rise.',
         points: 4
       }
     ]
   },
 
-  // 2. Lesson 1 Part 2 (Lesson 2): Causes and Factors Contributing to Temperature Spike
+  // 2. Lesson 2: Change in Weather Patterns Due to Rising Global Temperatures
   {
     id: 2,
-    slug: 'causes-and-factors-contributing-to-temperature-spike',
-    title: 'Lesson 1, Part 2: Causes & Contributing Factors',
-    shortTitle: 'Causes of Temperature Spike',
-    subtitle: 'Analyzing greenhouse gas chemistry, industrial emissions, deforestation, and feedback mechanisms.',
+    slug: 'change-in-weather-patterns-due-to-rising-global-temperatures',
+    title: 'Lesson 2: Change in Weather Patterns Due to Rising Global Temperatures',
+    shortTitle: 'Change in Weather Patterns',
+    subtitle: 'Altered rainfall, severe droughts, intensified heatwaves, shifting seasons, and coastal sea-level rise.',
     readTime: '9 min read',
-    level: 'Core Science',
+    level: 'Core Dynamics',
     themeColor: '#16A34A',
     badge: 'Lesson 02',
-    summary: 'The primary drivers of the recent temperature spike stem from anthropogenic fossil fuel extraction and burning, industrial processes, agricultural livestock methane, and catastrophic destruction of natural carbon sinks.',
+    summary: 'The rise in global temperatures is causing noticeable changes in weather patterns across the world. Warmer temperatures alter rainfall patterns, bringing heavier flooding to some areas while plunging others into prolonged droughts.',
+    brief: 'The rise in global temperatures is causing noticeable changes in weather patterns across the world. Warmer temperatures can alter rainfall patterns, making some regions experience heavier rainfall and flooding, while others face longer periods of drought. Heatwaves are becoming more frequent and intense in many areas, while changes in ocean temperatures can influence storms and cyclones. Seasonal patterns are also shifting, affecting agriculture, water availability, and ecosystems. Melting glaciers and rising sea levels further increase risks for coastal communities. These changes demonstrate how increasing temperatures can disrupt natural climate systems and make weather conditions more unpredictable.',
     sections: [
       {
-        title: '1. The Major Greenhouse Gas Culprits',
-        content: 'Different greenhouse gases possess different radiative efficiencies and atmospheric residence times. Carbon dioxide (CO2) remains in the air for centuries, while Methane (CH4) traps over 80 times more heat than CO2 over a 20-year horizon.',
+        title: '1. Altered Rainfall Dynamics & The Flood-Drought Paradox',
+        content: 'Thermodynamics dictate that for every 1°C increase in atmospheric temperature, the air can hold approximately 7% more water vapor (Clausius-Clapeyron relation). This creates a dual atmospheric crisis: when storms develop, they discharge record torrential downpours causing catastrophic flash flooding; simultaneously, warmer air rapidly draws moisture out of agricultural soils, causing prolonged and severe droughts.',
         keyPoints: [
-          'Carbon Dioxide (CO2): Accounts for ~76% of all greenhouse gas emissions, originating from coal, oil, and gas combustion.',
-          'Methane (CH4): Responsible for ~16% of emissions, emitted from oil/gas leakage, coal mining, cattle ruminants, and decomposing organic waste.',
-          'Nitrous Oxide (N2O): Originates from synthetic nitrogen fertilizers and industrial chemical processing.',
-          'Fluorinated Gases (HFCs, PFCs): Ultra-potent synthetic coolants with global warming potentials thousands of times higher than CO2.'
+          'Warmer air holds more moisture, generating heavier, more destructive rainfall events.',
+          'Evaporative demand dries out rivers, lakes, and topsoils, lengthening drought cycles.',
+          'Seasonal rainfall windows are compressing into fewer, hyper-intense storm days.'
         ]
       },
       {
-        title: '2. Land-Use Changes, Deforestation & Albedo Reduction',
-        content: 'Forests and tropical rainforests like the Amazon act as Earth’s primary terrestrial lungs, sequestering billions of tons of carbon. When forests are slashed, burned, or cleared for cattle ranching and soy plantations, the stored carbon is instantaneously vented into the sky while destroying future photosynthetic uptake capacity.',
+        title: '2. Supercharged Cyclones, Shifting Seasons & Coastal Threats',
+        content: 'Oceans act as thermal fuel tanks for tropical storms. As ocean surface temperatures warm above 26.5°C, cyclones and typhoons intensify into dangerous Category 4 and 5 systems with rapid intensification. Concurrently, shifting seasons alter planting cycles, and accelerating glacial melt drives sea levels higher, threatening coastal cities and low-lying deltas.',
         keyPoints: [
-          'Deforestation contributes roughly 10% to 15% of net global emissions.',
-          'Loss of vegetation increases local terrestrial surface temperatures and disrupts moisture recycling.',
-          'Urban Heat Islands (UHI): Asphalt, tarmac, and concrete absorb solar thermal energy during the day and re-radiate it at night.'
+          'Warmer ocean surfaces provide thermodynamic fuel for more severe, rapidly intensifying cyclones.',
+          'Seasonal shifts disrupt flowering, pollination, and traditional agricultural planting calendars.',
+          'Melting glaciers and thermal expansion of seawater increase permanent coastal inundation risks.'
         ]
       }
     ],
     interactiveGame: {
       type: 'drag-source',
-      title: 'Emissions Source & Sector Sorting Game',
-      instructions: 'Categorize emission activities (power generation, agriculture, transportation, deforestation) into their dominant greenhouse gas drivers.'
+      title: 'Weather Disruption & Emission Sector Sorting Lab',
+      instructions: 'Categorize emission activities and weather phenomena (power generation, agriculture, transportation, deforestation) into their dominant drivers.'
     },
     quiz: [
       {
         id: 1,
-        question: 'Which gas accounts for the largest overall share (~76%) of global anthropogenic greenhouse gas emissions?',
+        question: 'How do rising global temperatures alter worldwide rainfall patterns?',
         options: [
-          'A) Carbon Dioxide (CO2)',
-          'B) Argon (Ar)',
-          'C) Pure Oxygen (O2)',
-          'D) Helium (He)'
+          'A) Rainfall stops completely everywhere across the planet forever',
+          'B) Some regions experience heavier rainfall and flooding, while others face longer periods of drought',
+          'C) Every single city receives identical rain every single day',
+          'D) Rain only falls at nighttime'
         ],
-        correctAnswer: 0,
-        explanation: 'Carbon dioxide (CO2) from fossil fuel combustion and industrial processes represents over three-quarters of all human-induced greenhouse emissions.',
+        correctAnswer: 1,
+        explanation: 'Warmer air holds ~7% more moisture per 1°C, causing extreme downpours and flash floods in some regions while severely desiccating soils into droughts in others.',
         points: 4
       },
       {
         id: 2,
-        question: 'Over a 20-year timeframe, how does Methane (CH4) compare to Carbon Dioxide in its heat-trapping potency?',
+        question: 'How do warmer ocean surface temperatures affect tropical storms and cyclones?',
         options: [
-          'A) It is 50% weaker than CO2',
-          'B) It traps over 80 times more heat per molecule than CO2',
-          'C) It has identical warming properties',
-          'D) It actually cools the atmosphere'
+          'A) They turn tropical storms into gentle morning breezes',
+          'B) They provide thermal energy that makes cyclones more intense, powerful, and unpredictable',
+          'C) They stop all cloud formation over oceans',
+          'D) They make hurricane winds spin backwards'
         ],
         correctAnswer: 1,
-        explanation: 'Methane is a short-lived but extremely potent climate pollutant, trapping over 80 times more heat than CO2 over a 20-year timescale.',
+        explanation: 'Oceans act as heat engines for tropical systems; elevated sea surface temperatures increase storm wind speeds, storm surges, and rapid intensification rates.',
         points: 4
       },
       {
         id: 3,
-        question: 'What is the primary way that large-scale deforestation accelerates global temperature rise?',
+        question: 'What critical systems are disrupted when natural seasonal patterns shift due to temperature rise?',
         options: [
-          'A) It increases oxygen levels in the upper stratosphere',
-          'B) It releases stored plant carbon and removes natural carbon-absorbing sinks',
-          'C) It blocks sunlight from reaching the ground',
-          'D) It lowers sea level rise'
+          'A) Only indoor board games',
+          'B) Agriculture, water availability, and natural ecosystems',
+          'C) Computer keyboard manufacturing only',
+          'D) Underwater submarine colors'
         ],
         correctAnswer: 1,
-        explanation: 'Trees store immense carbon stocks in their biomass and root soils. Felling and burning trees releases this carbon and eliminates future photosynthesis.',
+        explanation: 'Seasonal shifts alter monsoon timings, planting and harvest schedules, water reservoir replenishment, and animal migration/pollination cycles.',
         points: 4
       },
       {
         id: 4,
-        question: 'Which sector is the single largest consumer of fossil fuels and emitter of greenhouse gases worldwide?',
+        question: 'Why do melting glaciers and rising sea levels pose escalating risks for coastal communities?',
         options: [
-          'A) Residential cooking appliances',
-          'B) Electricity and heat generation from coal, oil, and gas',
-          'C) Bicycles and non-motorized transport',
-          'D) High school laboratories'
+          'A) They make coastlines wider and drier',
+          'B) They cause saltwater intrusion into freshwater aquifers, coastal erosion, and higher storm surge inundation',
+          'C) They convert oceans into solid bedrock',
+          'D) They eliminate high tide permanently'
         ],
         correctAnswer: 1,
-        explanation: 'Electricity generation, heating, and heavy industrial power systems collectively burn the highest volume of coal, oil, and natural gas.',
+        explanation: 'Glacial runoff and thermal expansion elevate baseline sea levels, exacerbating tidal flooding, contaminating freshwater drinking wells, and eroding shorelines.',
         points: 4
       },
       {
         id: 5,
-        question: 'What is the "Urban Heat Island" effect?',
+        question: 'What is the broader takeaway regarding how increasing global temperatures affect weather conditions?',
         options: [
-          'A) When city parks create tropical waterfalls',
-          'B) When urban concrete, asphalt, and buildings absorb and retain heat, making cities significantly hotter than surrounding rural areas',
-          'C) When cities drift closer to the equator',
-          'D) A seasonal hurricane in downtown areas'
+          'A) Weather is becoming 100% stable and unchanging',
+          'B) Increasing temperatures disrupt natural climate systems and make weather conditions far more unpredictable and extreme',
+          'C) The Earth will soon have no atmosphere at all',
+          'D) Weather patterns are unaffected by thermodynamic changes'
         ],
         correctAnswer: 1,
-        explanation: 'Dense urban surfaces (asphalt roads, dark roofs, concrete) absorb solar radiation during daylight and slowly radiate heat at night, elevating urban temperatures by 2°C to 5°C.',
+        explanation: 'Global heating destabilizes atmospheric circulation and jet streams, disrupting natural cycles and multiplying the frequency and severity of extreme weather events.',
         points: 4
       }
     ]
   },
 
-  // 3. Lesson 3: Affected Areas, Localities, and Frontline Vulnerabilities
+  // 3. Lesson 3: Global Areas and Localities Affected
   {
     id: 3,
-    slug: 'affected-areas-localities-and-frontlines',
-    title: 'Lesson 3: Affected Areas, Localities & Frontlines',
-    shortTitle: 'Affected Areas & Hotspots',
-    subtitle: 'Examining low-lying coastal zones, arid agricultural breadbaskets, equatorial mega-cities, and tipping points.',
+    slug: 'global-areas-and-localities-affected',
+    title: 'Lesson 3: Global Areas and Localities Affected',
+    shortTitle: 'Global Areas Affected',
+    subtitle: 'Examining frontline vulnerabilities across South Asia, Africa, Europe, North America, small island nations, and urban heat islands.',
     readTime: '9 min read',
     level: 'Geographic Analysis',
     themeColor: '#075985',
     badge: 'Lesson 03',
-    summary: 'Climate disruption is not distributed evenly. Polar permafrost zones, Small Island Developing States (SIDS), sub-Saharan pastoral belts, and equatorial metropolitan centers face existential and compounding risks.',
+    summary: 'Rising temperatures and changing weather patterns are affecting communities across the globe, though impacts vary by region. South Asia, Africa, Europe, North America, island nations, and dense cities face compounding vulnerabilities.',
+    brief: 'Rising temperatures and changing weather patterns are affecting communities across the globe, though the impacts vary by region. South Asia faces intense heatwaves, irregular monsoons, flooding, and water shortages. Africa experiences increasing droughts, heat stress, and impacts on agriculture. Europe and North America are seeing more frequent heatwaves, wildfires, and extreme rainfall. Small island nations and coastal areas are particularly vulnerable to sea-level rise and stronger storms. In cities, the urban heat-island effect can make temperatures even higher. These changes affect agriculture, water resources, biodiversity, infrastructure, and the daily lives of millions of people.',
     sections: [
       {
-        title: '1. Small Island Developing States & Coastal Megacities',
-        content: 'Low-lying archipelagos like Tuvalu, Kiribati, the Maldives, and the Marshall Islands sit barely 1.5 to 2 meters above sea level. Rising seas contaminate freshwater aquifers with saltwater intrusion, erode protective coastlines, and exacerbate tidal flooding.',
+        title: '1. Regional Frontlines: South Asia, Africa, Europe & North America',
+        content: 'No continent is immune, but geographical exposure and socioeconomic resilience differ markedly. South Asia copes with deadly wet-bulb heatwaves and erratic monsoon rains. Sub-Saharan Africa faces persistent agricultural droughts and food insecurity. Meanwhile, Europe and North America battle recurrent heat domes, catastrophic wildfires, and river flooding.',
         keyPoints: [
-          'Global sea levels are climbing at an accelerating rate of ~3.4 mm/year.',
-          'Coastal megacities (e.g. Jakarta, Mumbai, Alexandria, Miami, Ho Chi Minh City) face massive flood defense retrofitting costs.',
-          'Salinization renders coastal rice paddies and agricultural deltas infertile.'
+          'South Asia: Intense heatwaves, monsoon irregularities, catastrophic glacial lake outburst floods, and freshwater stress.',
+          'Africa: Lengthening droughts, soil desiccation, and heavy threats to rain-fed subsistence agriculture.',
+          'Europe & North America: Extreme heatwaves, mega-wildfires in Mediterranean and western forests, and torrential rainstorms.'
         ]
       },
       {
-        title: '2. The Sahel, Mediterranean, and Agricultural Breadbaskets',
-        content: 'The African Sahel and the Mediterranean Basin have become terrestrial climate hotspots. Unprecedented heat domes exceed 45°C, desiccating soils, intensifying wildfires in Greece and California, and triggering severe water rationing.',
+        title: '2. Small Island Developing States (SIDS) & Urban Heat Islands',
+        content: 'Low-lying atoll nations (Tuvalu, Maldives, Kiribati) sit mere meters above sea level and face existential threats from coastal erosion and groundwater salinization. Inside metropolitan areas, the Urban Heat Island (UHI) effect elevates downtown temperatures by 3°C to 7°C above nearby rural surroundings, threatening vulnerable urban populations.',
         keyPoints: [
-          'The Mediterranean region is warming 20% faster than the global mean average.',
-          'Sub-Saharan Africa experiences compounding droughts and flash flooding, displacing rural farming families.',
-          'Wet-bulb temperatures above 35°C in South Asia threaten human physiological heat tolerance without mechanical cooling.'
+          'Small Island Nations: Vulnerable to permanent land loss, destructive storm surges, and loss of potable freshwater.',
+          'Urban Centers: Dense concrete, asphalt, and traffic emissions trap heat, intensifying urban health hazards.',
+          'Compounding Risks: Threatens agriculture, municipal water supplies, critical infrastructure, and human livelihoods.'
         ]
       }
     ],
     interactiveGame: {
       type: 'hotspot-matcher',
-      title: 'Global Vulnerability Matcher Game',
+      title: 'Global Vulnerability & Hotspot Matcher Game',
       instructions: 'Match each affected geographic region with its primary ecological threat: coastal inundation, permafrost collapse, or extreme wet-bulb heat.'
     },
     quiz: [
       {
         id: 1,
-        question: 'Why are Small Island Developing States (SIDS) like the Maldives and Tuvalu considered on the frontline of climate risk?',
+        question: 'Which specific climate impacts are most acute across South Asia?',
         options: [
-          'A) They have too many mountains causing landslides',
-          'B) They have very low elevation (1 to 2 meters above sea level) and face existential coastal erosion and salinization',
-          'C) They are located inside active volcanoes',
-          'D) They do not receive any solar energy'
+          'A) Mild snow accumulation only',
+          'B) Intense heatwaves, irregular monsoons, catastrophic flooding, and water shortages',
+          'C) Complete disappearance of all rivers overnight',
+          'D) Ice shelf advance'
         ],
         correctAnswer: 1,
-        explanation: 'Low-lying islands sit just above sea level, making them extremely susceptible to rising sea levels, storm surges, and saltwater contamination of drinking water.',
+        explanation: 'South Asia experiences severe heat stress exceeding physiological wet-bulb thresholds, alongside erratic monsoon flooding and water scarcity.',
         points: 4
       },
       {
         id: 2,
-        question: 'What is dangerous about a "Wet-Bulb Temperature" exceeding 35°C (95°F at 100% humidity)?',
+        question: 'How are rising temperatures and changing weather patterns impacting Africa?',
         options: [
-          'A) It freezes water pipes instantly',
-          'B) The human body can no longer cool itself through sweating, leading to fatal heat stroke within hours',
-          'C) It only harms car engines',
-          'D) It stops internet signals from traveling'
+          'A) Creating tropical rainforests across the entire Sahara',
+          'B) Increasing droughts, severe heat stress, and heavy impacts on rain-fed agriculture',
+          'C) Cooling the continent to sub-zero temperatures',
+          'D) Stopping all wind currents completely'
         ],
         correctAnswer: 1,
-        explanation: 'At high wet-bulb temperatures, air is so warm and saturated with moisture that human sweat cannot evaporate, preventing internal temperature regulation and threatening survival.',
+        explanation: 'Africa faces prolonged agricultural droughts, heat stress, soil degradation, and threats to food and water security.',
         points: 4
       },
       {
         id: 3,
-        question: 'Which factor causes sea levels to rise globally as planetary temperatures increase?',
+        question: 'What climate challenges have become increasingly frequent in Europe and North America?',
         options: [
-          'A) Thermal expansion of warming ocean water AND melting land ice sheets and glaciers',
-          'B) More boats sailing in the oceans',
-          'C) Rain falling only into the ocean and never on land',
-          'D) Underwater coral reefs growing too tall'
+          'A) More frequent intense heatwaves, destructive wildfires, and extreme rainfall events',
+          'B) Total elimination of summer seasons',
+          'C) Expansion of polar permafrost down to Paris and New York',
+          'D) Complete cessation of coastal storms'
         ],
         correctAnswer: 0,
-        explanation: 'Thermal expansion (warm water takes up more physical volume) combined with runoff from melting glaciers and the Greenland/Antarctic ice sheets drives sea level rise.',
+        explanation: 'Both regions have experienced record-shattering heat domes, severe wildfire seasons (e.g. Greece, Canada, California), and intense atmospheric rain events.',
         points: 4
       },
       {
         id: 4,
-        question: 'How is the Mediterranean Basin warming relative to the worldwide global average?',
+        question: 'Why are Small Island Developing States (SIDS) particularly vulnerable?',
         options: [
-          'A) It is actually cooling rapidly',
-          'B) It is warming roughly 20% faster than the global average, driving chronic heatwaves and wildfire risks',
-          'C) Exactly identical to Antarctica',
-          'D) It experiences zero temperature shifts'
+          'A) They are too high in elevation for rain clouds',
+          'B) They sit barely 1 to 2 meters above sea level, making them acutely vulnerable to sea-level rise and stronger storms',
+          'C) They do not have access to sunlight',
+          'D) They are covered in glaciers'
         ],
         correctAnswer: 1,
-        explanation: 'The Mediterranean Basin is an recognized climate hotspot warming 20% faster than global averages, resulting in intense droughts and forest fires.',
+        explanation: 'Low-lying islands face existential risks of land loss, wave surges, and saltwater contamination of drinking water aquifers.',
         points: 4
       },
       {
         id: 5,
-        question: 'What ecological disaster occurs when prolonged marine heatwaves strike tropical coral reefs?',
+        question: 'What is the "urban heat-island effect" in metropolitan cities?',
         options: [
-          'A) Corals grow 10 times faster',
-          'B) Mass coral bleaching, where corals expel their vital symbiotic algae and starve',
-          'C) Coral reefs turn into freshwater lakes',
-          'D) Corals produce excessive fresh fruit'
+          'A) When city parks create tropical coral reefs',
+          'B) When urban concrete, asphalt, buildings, and vehicle activity absorb and trap heat, making cities significantly hotter than surrounding areas',
+          'C) A tropical vacation resort built in city squares',
+          'D) When city subways freeze in summer'
         ],
         correctAnswer: 1,
-        explanation: 'Under thermal stress, corals expel their symbiotic zooxanthellae algae, turning white and frequently dying, destroying nurseries for 25% of all marine species.',
+        explanation: 'Dense urban materials absorb solar heat during the day and re-radiate it at night, elevating urban temperatures and compounding heat stress.',
         points: 4
       }
     ]
   },
 
-  // 4. Lesson 4: Measures Needed to Be Taken Against It
+  // 4. Lesson 4: Measures Against Rising Temperatures & Changing Weather
   {
     id: 4,
-    slug: 'measures-needed-to-be-taken-against-it',
-    title: 'Lesson 4: Measures Needed to Be Taken Against It',
-    shortTitle: 'Essential Action Measures',
-    subtitle: 'Strategic blueprints: Rapid grid decarbonization, energy efficiency, circular infrastructure, and nature-based solutions.',
+    slug: 'measures-against-rising-temperatures-and-changing-weather',
+    title: 'Lesson 4: Measures Against Rising Temperatures & Changing Weather',
+    shortTitle: 'Action & Prevention Measures',
+    subtitle: 'Renewable energy, afforestation, clean industrial technologies, water conservation, early-warning systems, and individual lifestyle actions.',
     readTime: '10 min read',
-    level: 'Strategic Frameworks',
+    level: 'Strategic Solutions',
     themeColor: '#16A34A',
     badge: 'Lesson 04',
-    summary: 'Overcoming the climate crisis requires an immediate and coordinated transition: tripling global renewable energy capacity, electrifying transportation, deploying battery storage, and regenerating natural forests and wetlands.',
+    summary: 'Overcoming climate disruption requires systemic action: shifting to renewable energy, protecting and restoring forests, adopting clean industrial technology, harvesting water, and empowering citizen stewardship.',
+    brief: 'Reducing greenhouse gas emissions by shifting to renewable energy, improving energy efficiency, and promoting public transport and electric vehicles. Afforestation and protection of forests are essential for absorbing carbon dioxide and maintaining ecological balance. Industries should adopt cleaner technologies and reduce pollution. Communities should also practice water conservation, rainwater harvesting, and sustainable agriculture. Governments must strengthen early-warning systems, improve disaster preparedness, and develop climate-resilient infrastructure. Individuals can contribute by saving electricity, reducing waste, recycling, and adopting environmentally friendly lifestyles. Together, these measures can help slow global warming and reduce its impact on people and ecosystems.',
     sections: [
       {
-        title: '1. The Decarbonization Roadmap: Tripling Clean Power by 2030',
-        content: 'At COP28, over 130 nations agreed to triple global renewable capacity by 2030 and double the annual rate of energy efficiency improvements. Solar photovoltaic and onshore wind have achieved grid parity, making them cheaper than building new coal or gas infrastructure in nearly all major economies.',
+        title: '1. Renewable Energy Transition & Forest Protection',
+        content: 'The most direct pathway to halting temperature rise is cutting emissions at the source: rapidly replacing coal, oil, and gas with utility-scale solar PV, wind, and battery storage. In parallel, preserving standing forests and active afforestation absorbs gigatons of atmospheric carbon while restoring biodiversity.',
         keyPoints: [
-          'Solar and wind power costs have plummeted by 85% and 60% respectively over the past decade.',
-          'Grid-scale Battery Energy Storage Systems (BESS) smooth intermittent solar and wind dispatch.',
-          'Electrification of passenger vehicles, buses, and light rail replaces fossil fuel combustion.'
+          'Renewable Energy: Solar and wind power have plummeted in cost by 60%–85%, outcompeting fossil peakers.',
+          'Electrification: Shifting passenger transit, rail, and fleets to electric vehicles eliminates tailpipe emissions.',
+          'Afforestation & Conservation: Trees act as natural terrestrial carbon sinks, sequestering CO2 into roots and soils.'
         ]
       },
       {
-        title: '2. Nature-Based Solutions (NbS) & Carbon Removal',
-        content: 'Technology alone cannot solve ecological degradation. Nature-based solutions (mangrove restoration, peatland re-wetting, regenerative agroforestry) absorb and lock away billions of tons of CO2 while providing natural buffers against cyclones and coastal flooding.',
+        title: '2. Resilient Infrastructure, Early Warnings & Individual Action',
+        content: 'Climate resilience requires combining governmental policies with grassroots community action. Modernizing building codes, building seawalls and permeable surfaces, and installing AI-powered meteorological early-warning systems saves lives. Meanwhile, individual actions—energy conservation, reducing waste, and active recycling—create immense cumulative change.',
         keyPoints: [
-          'Coastal mangroves sequester up to 4 times more carbon per hectare than terrestrial tropical rainforests.',
-          'Protecting intact peatlands prevents massive stored subterranean carbon releases.',
-          'Permeable urban pavements and green rooftops mitigate urban heat island severity.'
+          'Water Security: Rainwater harvesting, drip irrigation, and wetland restoration protect freshwater reserves.',
+          'Disaster Preparedness: Early-warning siren and mobile networks give frontline communities crucial evacuation hours.',
+          'Everyday Contributions: Saving electricity, reducing plastic and food waste, and adopting sustainable diets collectively bends the emissions curve.'
         ]
       }
     ],
@@ -452,67 +456,67 @@ export const LESSONS_DATA: Lesson[] = [
     quiz: [
       {
         id: 1,
-        question: 'Which energy sources have seen cost reductions of 60% to 85% over the past decade, making them cheaper than fossil fuels in most regions?',
+        question: 'Which systemic actions are essential for reducing global greenhouse gas emissions?',
         options: [
-          'A) Coal mining and bunker oil',
-          'B) Solar photovoltaic (PV) and utility-scale wind power',
-          'C) Kerosene lamps',
-          'D) Peat burning'
+          'A) Burning more coal and expanding gasoline subsidies',
+          'B) Shifting to renewable energy, improving energy efficiency, and promoting public transit and electric vehicles',
+          'C) Cutting down mature rainforests for pasture',
+          'D) Banning bicycles from all roadways'
         ],
         correctAnswer: 1,
-        explanation: 'Technological innovations and manufacturing economies of scale have caused solar PV and wind power costs to plummet by 85% and 60% respectively.',
+        explanation: 'Shifting power grids to renewables, boosting energy efficiency, and transitioning transportation to EVs and public transit directly slashes emissions.',
         points: 4
       },
       {
         id: 2,
-        question: 'Why are coastal mangrove forests considered high-value "Nature-Based Solutions"?',
+        question: 'Why are afforestation and the protection of existing forests vital against rising temperatures?',
         options: [
-          'A) They emit large amounts of methane gas',
-          'B) They sequester up to 4 times more carbon per hectare than tropical rainforests and buffer coastlines against storm surges',
-          'C) They absorb all tidal water permanently',
-          'D) They prevent fish from swimming'
+          'A) Trees release vast amounts of sulfur into rivers',
+          'B) Forests absorb and store carbon dioxide from the atmosphere and preserve natural ecological balance',
+          'C) Forests prevent the sun from rising in winter',
+          'D) Trees eliminate the need for drinking water'
         ],
         correctAnswer: 1,
-        explanation: 'Mangroves store vast amounts of blue carbon in their deep soils and their complex root systems attenuate destructive storm waves.',
+        explanation: 'Forests are Earth’s primary terrestrial carbon sinks, pulling CO2 out of the atmosphere through photosynthesis and storing it in biomass and soils.',
         points: 4
       },
       {
         id: 3,
-        question: 'What is the role of Battery Energy Storage Systems (BESS) in modern clean electrical grids?',
+        question: 'How can communities and agriculture adapt to changing rainfall and water shortages?',
         options: [
-          'A) They burn diesel fuel during windy nights',
-          'B) They store surplus renewable energy generated during sunny or windy hours and dispatch it when demand peaks',
-          'C) They create solar radiation from darkness',
-          'D) They only power pocket flashlights'
+          'A) By paving over all natural rivers with concrete',
+          'B) Through water conservation, rainwater harvesting, and sustainable, drought-resilient agriculture',
+          'C) By draining all aquifers into the open ocean',
+          'D) By watering lawns exclusively during the hottest hour of the day'
         ],
         correctAnswer: 1,
-        explanation: 'Utility battery systems absorb excess clean power during sunny or windy periods and inject it back into the grid on calm evenings, stabilizing supply.',
+        explanation: 'Rainwater collection tanks, drip irrigation, and soil moisture retention techniques ensure community water security during prolonged dry spells.',
         points: 4
       },
       {
         id: 4,
-        question: 'What is the international target set at COP28 regarding clean renewable electricity by 2030?',
+        question: 'What role must governments play to protect citizens from extreme weather disasters?',
         options: [
-          'A) Reduce clean energy by 50%',
-          'B) Triple global renewable energy capacity by 2030',
-          'C) Stop all solar installations',
-          'D) Maintain the status quo without change'
+          'A) Discontinue all meteorological forecasts',
+          'B) Strengthen early-warning systems, improve disaster preparedness, and build climate-resilient infrastructure',
+          'C) Ban sea defenses and seawalls',
+          'D) Increase building on fragile floodplains'
         ],
         correctAnswer: 1,
-        explanation: 'The COP28 consensus established a benchmark to triple renewable energy capacity worldwide by 2030 to keep the 1.5°C threshold achievable.',
+        explanation: 'Timely early warnings, upgraded evacuation routes, and hardened infrastructure drastically reduce mortality and economic destruction during storms.',
         points: 4
       },
       {
         id: 5,
-        question: 'How do green rooftops and permeable urban infrastructure help reduce city heat spikes?',
+        question: 'How can individuals meaningfully contribute to slowing global warming?',
         options: [
-          'A) By reflecting heat, providing plant evapotranspiration cooling, and letting rainwater absorb naturally into the soil',
-          'B) By blocking wind from entering cities',
-          'C) By trapping steam in office basements',
-          'D) By painting every street black'
+          'A) Leaving all household lights and appliances powered on 24/7',
+          'B) Saving electricity, reducing waste, recycling, and adopting environmentally friendly, conscious lifestyles',
+          'C) Burning household plastics in backyards',
+          'D) Refusing to use public transport'
         ],
-        correctAnswer: 0,
-        explanation: 'Vegetated roofs and permeable pavements cool metropolitan centers through plant moisture evapotranspiration and reduce radiant solar absorption.',
+        correctAnswer: 1,
+        explanation: 'Individual behavioral shifts—reducing energy consumption, avoiding food waste, recycling, and choosing low-carbon transit—generate immense collective impact.',
         points: 4
       }
     ]
@@ -530,6 +534,7 @@ export const LESSONS_DATA: Lesson[] = [
     themeColor: '#087FCE',
     badge: 'Lesson 05',
     summary: 'True climate stability requires overhauling economic models and material manufacturing: replacing high-emission Portland cement and steel, adopting circular product lifecycles, and enacting transparent carbon pricing mechanisms.',
+    brief: 'Achieving deep, lasting sustainability requires transitioning from linear extraction to circular economic models. Decarbonizing heavy materials like steel and cement through green hydrogen and bio-composites eliminates embodied emissions. Implementing carbon pricing mechanisms, transparent ESG disclosures, and green financing instruments ensures economic incentives align with planetary boundaries, supported by collective community stewardship and conscious resource efficiency.',
     sections: [
       {
         title: '1. Material Innovation: Steel, Cement, and Embodied Carbon',
@@ -636,6 +641,7 @@ export const LESSONS_DATA: Lesson[] = [
     themeColor: '#075985',
     badge: 'Lesson 06',
     summary: 'All telemetry, temperature anomalies, and sustainability data throughout this course are synthesized from verified peer-reviewed scientific institutions, including the IPCC, NASA, NOAA, WMO, and UNEP.',
+    brief: 'All telemetry, planetary metrics, and sustainability strategies throughout this course are directly derived from primary scientific institutions, including the IPCC, NASA GISS, NOAA, WMO, and UNEP. Completing all interactive lessons and scoring on the questionnaires certifies foundational climate literacy, unlocking real-world partner rewards, tree-planting actions, and verified academic credentials.',
     sections: [
       {
         title: '1. Peer-Reviewed Academic & Institutional Citations',
