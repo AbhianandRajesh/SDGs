@@ -161,8 +161,8 @@ export default function App() {
           {/* CTA & Mobile Menu Toggle */}
           <div className="flex items-center gap-4">
             <button
-              onClick={() => setIsModalOpen(true)}
-              className="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#087FCE] hover:bg-[#075985] transition-all shadow-sm hover:shadow active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#087FCE] focus-visible:ring-offset-2"
+              onClick={() => navigateTo('features')}
+              className="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#16A34A] hover:bg-emerald-700 transition-all shadow-sm hover:shadow active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16A34A] focus-visible:ring-offset-2"
             >
               Start Free Course
             </button>
@@ -220,9 +220,9 @@ export default function App() {
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  setIsModalOpen(true);
+                  navigateTo('features');
                 }}
-                className="w-full flex items-center justify-center px-4 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#087FCE] hover:bg-[#075985] transition-all"
+                className="w-full flex items-center justify-center px-4 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#16A34A] hover:bg-emerald-700 transition-all"
               >
                 Start Free Course
               </button>

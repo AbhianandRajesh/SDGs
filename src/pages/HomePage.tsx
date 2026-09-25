@@ -221,20 +221,20 @@ export const HomePage: React.FC<HomePageProps> = ({
               {/* Action Buttons */}
               <div className="pt-2 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
                 <button
-                  onClick={onOpenModal}
+                  onClick={() => onNavigate('features')}
                   className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl text-base font-bold text-white bg-[#087FCE] hover:bg-[#075985] transition-all shadow-md hover:shadow-lg active:scale-95 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#087FCE] focus-visible:ring-offset-2"
                 >
                   <BookOpen className="w-5 h-5 mr-2 text-[#34d399]" />
                   <span>Start Your Free Course</span>
                   <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
                 </button>
-                <a
-                  href="#what-you-will-learn"
+                <button
+                  onClick={() => onNavigate('features')}
                   className="w-full sm:w-auto inline-flex items-center justify-center px-7 py-4 rounded-xl text-base font-semibold text-[#075985] bg-white border border-slate-200 hover:border-[#16A34A]/50 hover:bg-[#F5FFF9] transition-all shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16A34A]"
                 >
                   <span>Explore What You Will Learn</span>
                   <ChevronRight className="w-4 h-4 ml-1.5 text-[#16A34A]" />
-                </a>
+                </button>
               </div>
 
               {/* Key Trust & Course Badges */}
@@ -491,7 +491,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
               <div className="mt-6 pt-3">
                 <button
-                  onClick={onOpenModal}
+                  onClick={() => onNavigate('features')}
                   className="w-full py-2.5 px-4 rounded-xl text-xs font-bold text-white bg-[#16A34A] hover:bg-emerald-700 transition-colors shadow-sm text-center flex items-center justify-center gap-1.5"
                 >
                   <span>Enroll in Course (Free)</span>
@@ -517,7 +517,7 @@ export const HomePage: React.FC<HomePageProps> = ({
                   Level: {curriculumModules[selectedModule].level}
                 </span>
                 <button
-                  onClick={onOpenModal}
+                  onClick={() => onNavigate('features')}
                   className="px-4 py-2 rounded-xl bg-[#087FCE] text-white text-xs font-bold hover:bg-[#075985] transition-colors"
                 >
                   Start This Module
@@ -763,7 +763,7 @@ export const HomePage: React.FC<HomePageProps> = ({
               {/* Action Buttons */}
               <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
                 <button
-                  onClick={onOpenModal}
+                  onClick={() => onNavigate('features')}
                   className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 rounded-xl text-base font-bold text-[#075985] bg-white hover:bg-[#F5FFF9] transition-all shadow-lg hover:shadow-xl active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#087FCE]"
                 >
                   <BookOpen className="w-5 h-5 mr-2 text-[#16A34A]" />
