@@ -164,7 +164,7 @@ export default function App() {
               onClick={() => setIsModalOpen(true)}
               className="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#087FCE] hover:bg-[#075985] transition-all shadow-sm hover:shadow active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#087FCE] focus-visible:ring-offset-2"
             >
-              Get Started
+              Start Free Course
             </button>
 
             {/* Mobile Hamburger Button */}
@@ -224,7 +224,7 @@ export default function App() {
                 }}
                 className="w-full flex items-center justify-center px-4 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#087FCE] hover:bg-[#075985] transition-all"
               >
-                Get Started
+                Start Free Course
               </button>
             </div>
           </div>
@@ -420,24 +420,24 @@ export default function App() {
                   <CheckCircle2 className="w-10 h-10" />
                 </div>
                 <h3 id="modal-title" className="text-2xl font-bold text-[#075985]">
-                  You're on Your Way!
+                  You're Enrolled!
                 </h3>
                 <p className="text-sm text-slate-600">
-                  Thank you, <span className="font-semibold text-slate-900">{formData.name}</span>. An engineering advisor will reach out to <span className="font-semibold text-slate-900">{formData.email}</span> within 4 hours.
+                  Welcome aboard, <span className="font-semibold text-slate-900">{formData.name}</span>. Your free course syllabus and introductory module link have been sent to <span className="font-semibold text-slate-900">{formData.email}</span>.
                 </p>
               </div>
             ) : (
               <div>
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-[#087FCE]/10 text-[#087FCE] flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-xl bg-[#16A34A]/10 text-[#16A34A] flex items-center justify-center">
                     <Zap className="w-5 h-5" />
                   </div>
                   <div>
                     <h3 id="modal-title" className="text-xl font-bold text-[#075985]">
-                      Initiate Project Kickoff
+                      Start Your Free Course
                     </h3>
                     <p className="text-xs text-slate-500">
-                      Connect with Verdant's digital architecture team.
+                      Think Climate. Act Today. Protect Tomorrow.
                     </p>
                   </div>
                 </div>
@@ -454,13 +454,13 @@ export default function App() {
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       placeholder="Alex Morgan"
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#087FCE] transition-all"
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#16A34A] transition-all"
                     />
                   </div>
 
                   <div>
                     <label htmlFor="modal-email" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                      Work Email
+                      Email Address
                     </label>
                     <input
                       id="modal-email"
@@ -468,25 +468,26 @@ export default function App() {
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="alex@enterprise.com"
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#087FCE] transition-all"
+                      placeholder="alex@example.com"
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#16A34A] transition-all"
                     />
                   </div>
 
                   <div>
                     <label htmlFor="modal-type" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
-                      Primary Objective
+                      Learning Track / Interest
                     </label>
                     <select
                       id="modal-type"
                       value={formData.projectType}
                       onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#087FCE] bg-white transition-all"
+                      className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-[#16A34A] bg-white transition-all"
                     >
-                      <option value="High-Performance Web Development">High-Performance Web Development</option>
-                      <option value="Carbon Reduction & Eco-Architecture">Carbon Reduction & Eco-Architecture</option>
-                      <option value="Responsive Modernization">Responsive Redesign & Modern UI</option>
-                      <option value="Enterprise Architecture">Enterprise Cloud Infrastructure</option>
+                      <option value="Full Climate & Weather Patterns Course">Complete Free Climate & Weather Patterns Course (5 Modules)</option>
+                      <option value="Changing Weather Patterns & Rising Heat">Module 1: Changing Weather Patterns & Rising Heat</option>
+                      <option value="Globally Affected Areas & Solutions">Module 2 & 3: Global Hotspots & Future Projections</option>
+                      <option value="Sustainable Development Plans">Module 4 & 5: Sustainable Development Action Plans</option>
+                      <option value="Enterprise Sustainability Advisory">Enterprise & Institutional Climate Advisory</option>
                     </select>
                   </div>
 
@@ -495,12 +496,12 @@ export default function App() {
                       type="submit"
                       className="w-full inline-flex items-center justify-center px-6 py-3 rounded-xl text-sm font-bold text-white bg-[#087FCE] hover:bg-[#075985] transition-all shadow-md active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#087FCE]"
                     >
-                      <span>Confirm & Get Started</span>
+                      <span>Start Your Free Course</span>
                       <ArrowRight className="w-4 h-4 ml-2" />
                     </button>
                   </div>
                   <p className="text-[11px] text-center text-slate-400">
-                    No spam. Zero obligation consultation.
+                    100% Free educational access. Zero spam.
                   </p>
                 </form>
               </div>
