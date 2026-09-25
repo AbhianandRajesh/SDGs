@@ -133,14 +133,14 @@ export const CourseProgramView: React.FC<CourseProgramViewProps> = ({
             <div className="flex items-center gap-2 mb-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
               <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
-                Interactive Climate Learning Track
+                Part 2: Interactive Climate Learning Track & Gamification
               </span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
-              Course Programme: <span className="text-[#34d399]">Interactive Lessons</span>
+              Part 2: <span className="text-[#34d399]">Interactive Course Programme & Gamification</span>
             </h2>
             <p className="text-xs sm:text-sm text-slate-400 mt-1 max-w-xl">
-              Complete each lesson and score at least <strong className="text-white">75%</strong> on the questionnaire to unlock the next module. Scores of <strong className="text-amber-400">80%+ earn +5 bonus points</strong>!
+              Complete each interactive lesson and get <strong className="text-emerald-400">permission to advance to the next chapter only if at least 2 answers are correct</strong>. View whether answers are correct on the spot, and students scoring <strong className="text-amber-400">80%+ earn an extra +5 bonus points</strong>! Total points redeem for rewards and discount coupons.
             </p>
           </div>
 
@@ -203,7 +203,7 @@ export const CourseProgramView: React.FC<CourseProgramViewProps> = ({
               const isActive = activeLessonId === lesson.id;
               const score = lessonScores[lesson.id];
               const bonus = lessonBonus[lesson.id] || 0;
-              const isPassed = score !== undefined && score >= 15; // 75% = 15/20
+              const isPassed = score !== undefined && score >= 8; // Permission granted if at least 2 answers are correct (8+ pts)
 
               return (
                 <button
@@ -384,11 +384,11 @@ export const CourseProgramView: React.FC<CourseProgramViewProps> = ({
           {/* Interactive Game Simulation */}
           <InteractiveLessonGame lesson={currentLesson} />
 
-          {/* Gamified 5-Question Questionnaire with 75% Gating Rule */}
+          {/* Gamified 5-Question Questionnaire with 2-Correct Permission Rule */}
           <LessonQuestionnaire
             lesson={currentLesson}
             currentPoints={lessonScores[currentLesson.id] || 0}
-            hasPassed={lessonScores[currentLesson.id] !== undefined && lessonScores[currentLesson.id] >= 15}
+            hasPassed={lessonScores[currentLesson.id] !== undefined && lessonScores[currentLesson.id] >= 8}
             onPassLesson={handlePassLesson}
             onNextLesson={handleNextLesson}
             hasNextLesson={activeLessonId < 6}

@@ -128,7 +128,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({ onOpenModal, onNavig
             Explore in-depth scientific summaries on rising global temperature, changing weather patterns, primary causes, and prevention methods—then continue into the gamified questionnaire course to earn rewards.
           </p>
 
-          {/* Section Navigation Tabs: Part 1 vs Part 3 */}
+          {/* Section Navigation Tabs: Part 1 vs Part 2 */}
           <div className="mt-8 inline-flex p-1.5 bg-slate-100/90 rounded-2xl border border-slate-200 shadow-inner">
             <button
               onClick={() => setActiveSection('summary')}
@@ -149,7 +149,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({ onOpenModal, onNavig
               }`}
             >
               <Sparkles className="w-3.5 h-3.5 text-amber-300" />
-              <span>Part 3: Interactive Course & Quizzes</span>
+              <span>Part 2: Interactive Course Programme & Gamification</span>
             </button>
           </div>
         </div>
@@ -267,7 +267,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({ onOpenModal, onNavig
                   </h3>
 
                   <p className="text-sm sm:text-base text-slate-600 max-w-xl mx-auto leading-relaxed">
-                    Proceed to the interactive course. Each questionnaire has 5 questions carrying a total of 20 points (100 points total). Complete with <strong>75%+</strong> to unlock each lesson, and earn an <strong>extra +5 bonus points</strong> for scoring 80% and above!
+                    Proceed to the interactive course. Each questionnaire has 5 questions carrying a total of 20 points (100 points total). Check answers <strong className="text-emerald-700">on the spot</strong>, and gain <strong className="text-emerald-700">permission to advance to the next chapter only if at least 2 answers are correct</strong>. Scores of <strong>80%+ earn an extra +5 bonus points</strong>!
                   </p>
 
                   <div className="pt-2">
@@ -276,7 +276,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({ onOpenModal, onNavig
                       className="inline-flex items-center justify-center px-9 py-4 rounded-xl text-base font-bold text-white bg-[#16A34A] hover:bg-emerald-700 transition-all shadow-lg hover:shadow-xl active:scale-95 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16A34A]"
                     >
                       <BookOpen className="w-5 h-5 mr-2" />
-                      <span>Continue to Lessons</span>
+                      <span>Continue to Lessons (Part 2)</span>
                       <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
                     </button>
                   </div>
@@ -300,7 +300,7 @@ export const FeaturesPage: React.FC<FeaturesPageProps> = ({ onOpenModal, onNavig
 
             </div>
           ) : (
-            /* PART 3: INTERACTIVE COURSE PROGRAMME WITH GAMIFIED LESSONS 1 TO 6 */
+            /* PART 2: INTERACTIVE COURSE PROGRAMME WITH GAMIFIED LESSONS 1 TO 6 */
             <CourseProgramView
               onBackToOverview={() => {
                 setActiveSection('summary');
