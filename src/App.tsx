@@ -9,7 +9,11 @@ import {
   ShieldCheck,
   Phone,
   Mail,
-  ChevronRight
+  ChevronRight,
+  BookOpen,
+  User,
+  LogOut,
+  Sparkles
 } from 'lucide-react';
 import { HomePage } from './pages/HomePage';
 import { FeaturesPage } from './pages/FeaturesPage';
@@ -24,11 +28,23 @@ export default function App() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'fast' | 'eco' | 'responsive'>('fast');
+  const [featuresSection, setFeaturesSection] = useState<'summary' | 'lessons'>('summary');
+
+  // User Authentication / Enrollment State (saved in localStorage so user logs in once)
+  const [user, setUser] = useState<{ name: string; email: string } | null>(() => {
+    try {
+      const savedUser = localStorage.getItem('verdant_authenticated_user');
+      return savedUser ? JSON.parse(savedUser) : null;
+    } catch {
+      return null;
+    }
+  });
+
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    projectType: 'High-Performance Web Development',
+    projectType: 'Full Climate & Weather Patterns Course',
     message: ''
   });
 
@@ -52,12 +68,30 @@ export default function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  const navigateTo = (page: string) => {
+  const navigateTo = (page: string, section?: 'summary' | 'lessons') => {
     const validPage = (['home', 'features', 'about', 'contact'].includes(page) ? page : 'home') as PageType;
     setCurrentPage(validPage);
+    if (section && validPage === 'features') {
+      setFeaturesSection(section);
+    }
     window.location.hash = validPage;
     setMobileMenuOpen(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  /**
+   * Primary Action: "Start Free Course"
+   * If user is already logged in once -> directly paths to the interactive lessons on Features Page!
+   * If user has not logged in yet -> opens the quick sign-in modal, then directs to lessons.
+   */
+  const handleStartFreeCourse = () => {
+    if (user) {
+      // User is logged in once: directly navigate to lessons on features page!
+      navigateTo('features', 'lessons');
+    } else {
+      // Prompt user to log in / enroll once
+      setIsModalOpen(true);
+    }
   };
 
   // Close modals on Escape key
@@ -75,14 +109,29 @@ export default function App() {
   const handleModalSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email) return;
+
+    const authenticatedUser = { name: formData.name, email: formData.email };
+    setUser(authenticatedUser);
+    try {
+      localStorage.setItem('verdant_authenticated_user', JSON.stringify(authenticatedUser));
+    } catch (err) {
+      console.error('Failed to save user session:', err);
+    }
+
     setFormSubmitted(true);
     setTimeout(() => {
-      setTimeout(() => {
-        setIsModalOpen(false);
-        setFormSubmitted(false);
-        setFormData({ name: '', email: '', projectType: 'High-Performance Web Development', message: '' });
-      }, 2500);
-    }, 400);
+      setIsModalOpen(false);
+      setFormSubmitted(false);
+      // Immediately path to the lessons on features page after login!
+      navigateTo('features', 'lessons');
+    }, 1200);
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    try {
+      localStorage.removeItem('verdant_authenticated_user');
+    } catch {}
   };
 
   return (
@@ -159,13 +208,42 @@ export default function App() {
           </nav>
 
           {/* CTA & Mobile Menu Toggle */}
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => navigateTo('features')}
-              className="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#16A34A] hover:bg-emerald-700 transition-all shadow-sm hover:shadow active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16A34A] focus-visible:ring-offset-2"
-            >
-              Start Free Course
-            </button>
+          <div className="flex items-center gap-3">
+            {user ? (
+              <div className="hidden sm:flex items-center gap-2">
+                {/* Logged in badge with user's name */}
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-slate-700">
+                  <div className="w-6 h-6 rounded-full bg-[#16A34A] text-white flex items-center justify-center font-bold text-xs">
+                    {user.name.charAt(0).toUpperCase()}
+                  </div>
+                  <span className="font-semibold text-slate-800 max-w-[120px] truncate">{user.name}</span>
+                </div>
+                {/* Start Free Course is direct path to lessons on features page */}
+                <button
+                  onClick={handleStartFreeCourse}
+                  className="inline-flex items-center justify-center px-4 py-2.5 rounded-lg text-sm font-bold text-white bg-gradient-to-r from-[#087FCE] to-[#16A34A] hover:opacity-95 transition-all shadow-sm hover:shadow active:scale-95"
+                  title="Direct path to lessons on features page"
+                >
+                  <BookOpen className="w-4 h-4 mr-1.5" />
+                  <span>Resume Course Lessons</span>
+                </button>
+                <button
+                  onClick={handleLogout}
+                  className="p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors"
+                  title="Sign out"
+                  aria-label="Sign out"
+                >
+                  <LogOut className="w-4 h-4" />
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={handleStartFreeCourse}
+                className="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#16A34A] hover:bg-emerald-700 transition-all shadow-sm hover:shadow active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#16A34A] focus-visible:ring-offset-2"
+              >
+                Start Free Course
+              </button>
+            )}
 
             {/* Mobile Hamburger Button */}
             <button
@@ -220,11 +298,11 @@ export default function App() {
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
-                  navigateTo('features');
+                  handleStartFreeCourse();
                 }}
                 className="w-full flex items-center justify-center px-4 py-2.5 rounded-lg text-sm font-semibold text-white bg-[#16A34A] hover:bg-emerald-700 transition-all"
               >
-                Start Free Course
+                {user ? 'Resume Course Lessons (Features)' : 'Start Free Course'}
               </button>
             </div>
           </div>
@@ -235,16 +313,23 @@ export default function App() {
       <main className="flex-1">
         {currentPage === 'home' && (
           <HomePage
-            onNavigate={navigateTo}
-            onOpenModal={() => setIsModalOpen(true)}
+            onNavigate={(page) => {
+              if (page === 'features' && user) {
+                navigateTo('features', 'lessons');
+              } else {
+                navigateTo(page);
+              }
+            }}
+            onOpenModal={handleStartFreeCourse}
             activeTab={activeTab}
             setActiveTab={setActiveTab}
           />
         )}
         {currentPage === 'features' && (
           <FeaturesPage
-            onOpenModal={() => setIsModalOpen(true)}
+            onOpenModal={handleStartFreeCourse}
             onNavigate={navigateTo}
+            initialSection={featuresSection}
           />
         )}
         {currentPage === 'about' && (
@@ -443,6 +528,11 @@ export default function App() {
                 </div>
 
                 <form onSubmit={handleModalSubmit} className="space-y-4 mt-6">
+                  <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200/80 text-xs text-emerald-800 flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-[#16A34A] shrink-0" />
+                    <span>Enter your details once to unlock instant access to all course lessons and quizzes on the Features page.</span>
+                  </div>
+
                   <div>
                     <label htmlFor="modal-name" className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
                       Full Name

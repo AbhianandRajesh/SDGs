@@ -23,11 +23,23 @@ import { CourseProgramView } from '../components/CourseProgramView';
 interface FeaturesPageProps {
   onOpenModal: () => void;
   onNavigate: (page: string) => void;
+  initialSection?: 'summary' | 'lessons';
 }
 
-export const FeaturesPage: React.FC<FeaturesPageProps> = ({ onOpenModal, onNavigate }) => {
-  // Mode toggle: 'summary' (Part 1) vs 'lessons' (Part 3)
-  const [activeSection, setActiveSection] = useState<'summary' | 'lessons'>('summary');
+export const FeaturesPage: React.FC<FeaturesPageProps> = ({
+  onOpenModal,
+  onNavigate,
+  initialSection = 'summary'
+}) => {
+  // Mode toggle: 'summary' (Part 1) vs 'lessons' (Part 2)
+  const [activeSection, setActiveSection] = useState<'summary' | 'lessons'>(initialSection);
+
+  // Sync activeSection if initialSection changes externally
+  React.useEffect(() => {
+    if (initialSection) {
+      setActiveSection(initialSection);
+    }
+  }, [initialSection]);
 
   // Part 1: Detailed summaries on the 4 core topics requested
   const summaryTopics = [
