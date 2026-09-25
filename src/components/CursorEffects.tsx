@@ -42,7 +42,7 @@ export const CursorEffects: React.FC = () => {
   const [cursorClicked, setCursorClicked] = useState<boolean>(false);
   const [hoverType, setHoverType] = useState<'button' | 'link' | 'card' | 'input' | null>(null);
 
-  // Position references for fluid physics lerping
+  // Position references for high-precision, low-latency tracking
   const mousePos = useRef({ x: -100, y: -100 });
   const prevMousePos = useRef({ x: -100, y: -100 });
   const followerPos = useRef({ x: -100, y: -100 });
@@ -55,7 +55,7 @@ export const CursorEffects: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    // Detect touch-only device
+    // Detect touch device
     if (window.matchMedia('(pointer: coarse)').matches) {
       setIsTouchDevice(true);
       return;
@@ -69,12 +69,12 @@ export const CursorEffects: React.FC = () => {
     const handleMouseMove = (e: MouseEvent) => {
       mousePos.current = { x: e.clientX, y: e.clientY };
 
-      // Update ambient underwater caustic glow pool
+      // Update ambient underwater caustic glow directly with smooth positioning
       if (causticRef.current) {
-        causticRef.current.style.transform = `translate3d(${e.clientX - 260}px, ${e.clientY - 260}px, 0)`;
+        causticRef.current.style.transform = `translate3d(${e.clientX - 240}px, ${e.clientY - 240}px, 0)`;
       }
 
-      // Calculate speed for water wake
+      // Velocity calculation for dynamic green water effects
       const dx = e.clientX - prevMousePos.current.x;
       const dy = e.clientY - prevMousePos.current.y;
       const speed = Math.hypot(dx, dy);
@@ -82,56 +82,56 @@ export const CursorEffects: React.FC = () => {
 
       const now = performance.now();
 
-      // Emit buoyant translucent green water bubbles on movement
-      if (enabled && now - lastBubbleTime > 40) {
+      // Emit translucent green water bubbles on movement
+      if (enabled && now - lastBubbleTime > 28) {
         lastBubbleTime = now;
         const emeraldShades = [
-          { fill: 'rgba(167, 243, 208, 0.22)', stroke: 'rgba(52, 211, 153, 0.75)' },
-          { fill: 'rgba(110, 231, 183, 0.25)', stroke: 'rgba(16, 185, 129, 0.85)' },
-          { fill: 'rgba(209, 250, 229, 0.3)', stroke: 'rgba(5, 150, 105, 0.7)' },
-          { fill: 'rgba(52, 211, 153, 0.2)', stroke: 'rgba(16, 185, 129, 0.9)' },
+          { fill: 'rgba(167, 243, 208, 0.28)', stroke: 'rgba(52, 211, 153, 0.85)' },
+          { fill: 'rgba(110, 231, 183, 0.3)', stroke: 'rgba(16, 185, 129, 0.9)' },
+          { fill: 'rgba(209, 250, 229, 0.32)', stroke: 'rgba(5, 150, 105, 0.8)' },
+          { fill: 'rgba(52, 211, 153, 0.25)', stroke: 'rgba(16, 185, 129, 0.95)' },
         ];
         const shade = emeraldShades[Math.floor(Math.random() * emeraldShades.length)];
-        const baseRadius = Math.random() * 4 + 2.5;
+        const baseRadius = Math.random() * 3.2 + 1.8;
 
         bubblesRef.current.push({
           id: bubbleIdCounter++,
-          x: e.clientX + (Math.random() * 12 - 6),
-          y: e.clientY + (Math.random() * 12 - 6),
+          x: e.clientX + (Math.random() * 6 - 3),
+          y: e.clientY + (Math.random() * 6 - 3),
           radius: baseRadius,
           color: shade.fill,
           strokeColor: shade.stroke,
-          opacity: 0.85,
+          opacity: 0.9,
           vx: (Math.random() - 0.5) * 0.9,
-          vy: -(Math.random() * 1.1 + 0.5), // Buoyancy: rises naturally in water
-          wobbleSpeed: Math.random() * 0.05 + 0.03,
+          vy: -(Math.random() * 1.4 + 0.7), // Natural upward water buoyancy
+          wobbleSpeed: Math.random() * 0.08 + 0.04,
           wobbleOffset: Math.random() * Math.PI * 2,
           life: 0,
-          maxLife: Math.random() * 45 + 35,
+          maxLife: Math.random() * 24 + 16, // Snappy clean lifespan
         });
 
-        if (bubblesRef.current.length > 35) {
+        if (bubblesRef.current.length > 28) {
           bubblesRef.current.shift();
         }
       }
 
-      // Emit gentle water wake ripples when surfing fast through the page
-      if (enabled && speed > 22 && now - lastWakeTime > 160) {
+      // Smooth water wake ripple on rapid movement (380ms duration)
+      if (enabled && speed > 26 && now - lastWakeTime > 110) {
         lastWakeTime = now;
         const wakeRipple: WaterRipple = {
           id: Date.now() + Math.random(),
           x: e.clientX,
           y: e.clientY,
-          maxRadius: Math.min(speed * 1.5, 45),
-          color: 'rgba(52, 211, 153, 0.6)',
+          maxRadius: Math.min(speed * 1.2, 38),
+          color: 'rgba(52, 211, 153, 0.7)',
         };
-        setRipples((prev) => [...prev.slice(-5), wakeRipple]);
+        setRipples((prev) => [...prev.slice(-3), wakeRipple]);
         setTimeout(() => {
           setRipples((prev) => prev.filter((r) => r.id !== wakeRipple.id));
-        }, 850);
+        }, 380);
       }
 
-      // Check hovered interactive elements for surface tension bloom
+      // Check hovered interactive elements with smooth state transitions
       const target = e.target as HTMLElement | null;
       if (target) {
         const interactiveEl = target.closest(
@@ -155,34 +155,33 @@ export const CursorEffects: React.FC = () => {
       }
     };
 
-    // Click triggers an emerald water splash with concentric rings & droplet beads
+    // Instant click reaction: water ripple wave & silky splash droplets
     const handleMouseDown = (e: MouseEvent) => {
       setCursorClicked(true);
 
-      // 1. Concentric water ripples (expanding waves)
       const now = Date.now();
-      const wave1: WaterRipple = { id: now, x: e.clientX, y: e.clientY, maxRadius: 55, color: 'rgba(16, 185, 129, 0.85)' };
-      const wave2: WaterRipple = { id: now + 1, x: e.clientX, y: e.clientY, maxRadius: 40, color: 'rgba(52, 211, 153, 0.7)' };
-      setRipples((prev) => [...prev.slice(-4), wave1, wave2]);
+      const wave1: WaterRipple = { id: now, x: e.clientX, y: e.clientY, maxRadius: 46, color: 'rgba(16, 185, 129, 0.9)' };
+      const wave2: WaterRipple = { id: now + 1, x: e.clientX, y: e.clientY, maxRadius: 32, color: 'rgba(52, 211, 153, 0.75)' };
+      setRipples((prev) => [...prev.slice(-3), wave1, wave2]);
 
       setTimeout(() => {
         setRipples((prev) => prev.filter((r) => r.id !== wave1.id && r.id !== wave2.id));
-      }, 900);
+      }, 380);
 
-      // 2. Physical water splash droplets flying out in a circle
-      const splashCount = 8;
+      // Fast, smooth water splash droplets
+      const splashCount = 7;
       for (let i = 0; i < splashCount; i++) {
         const angle = (Math.PI * 2 * i) / splashCount + (Math.random() * 0.4 - 0.2);
-        const force = Math.random() * 3.5 + 2;
+        const force = Math.random() * 3.6 + 2.2;
         splashDropletsRef.current.push({
           id: Math.random(),
           x: e.clientX,
           y: e.clientY,
           vx: Math.cos(angle) * force,
-          vy: Math.sin(angle) * force - 0.8,
-          radius: Math.random() * 2.8 + 1.8,
+          vy: Math.sin(angle) * force - 1.0,
+          radius: Math.random() * 2.2 + 1.4,
           opacity: 0.95,
-          color: Math.random() > 0.5 ? '#10b981' : '#34d399',
+          color: Math.random() > 0.4 ? '#10b981' : '#34d399',
         });
       }
     };
@@ -195,7 +194,6 @@ export const CursorEffects: React.FC = () => {
     window.addEventListener('mousedown', handleMouseDown);
     window.addEventListener('mouseup', handleMouseUp);
 
-    // Canvas resize handler
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext('2d');
 
@@ -208,31 +206,34 @@ export const CursorEffects: React.FC = () => {
     handleResize();
     window.addEventListener('resize', handleResize);
 
-    // Main animation loop for water bubble float & splash physics
+    // Highly responsive animation loop with monitor VSync synchronization
     const renderLoop = () => {
-      // Fluid lerp follower (simulating liquid drag)
-      const fluidDrag = 0.16;
-      followerPos.current.x += (mousePos.current.x - followerPos.current.x) * fluidDrag;
-      followerPos.current.y += (mousePos.current.y - followerPos.current.y) * fluidDrag;
+      // 1. Update dot point directly in sync with VSync for 0ms lag
+      if (dropletRef.current) {
+        dropletRef.current.style.transform = `translate3d(${mousePos.current.x}px, ${mousePos.current.y}px, 0)`;
+      }
+
+      // 2. Adaptive fluid drag: provides instantaneous response while preserving silky smooth liquid trailing
+      const dx = mousePos.current.x - followerPos.current.x;
+      const dy = mousePos.current.y - followerPos.current.y;
+      const distance = Math.hypot(dx, dy);
+      const fluidDrag = distance > 60 ? 0.52 : 0.46;
+      followerPos.current.x += dx * fluidDrag;
+      followerPos.current.y += dy * fluidDrag;
 
       if (ringRef.current) {
         ringRef.current.style.transform = `translate3d(${followerPos.current.x}px, ${followerPos.current.y}px, 0)`;
       }
 
-      if (dropletRef.current) {
-        dropletRef.current.style.transform = `translate3d(${mousePos.current.x}px, ${mousePos.current.y}px, 0)`;
-      }
-
-      // Render Green Water Bubbles & Splash Droplets on Canvas
+      // 3. Render Green Water Bubbles & Splash Droplets on Canvas
       if (ctx && canvas) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        // 1. Render Floating Translucent Water Bubbles
+        // Render Bubbles with smooth sinusoidal wobble
         for (let i = bubblesRef.current.length - 1; i >= 0; i--) {
           const b = bubblesRef.current[i];
           b.life += 1;
           b.y += b.vy;
-          // Sinusoidal lateral wobble like real air/water bubbles
           b.x += b.vx + Math.sin(b.life * b.wobbleSpeed + b.wobbleOffset) * 0.45;
           b.opacity = 1 - b.life / b.maxLife;
 
@@ -242,58 +243,44 @@ export const CursorEffects: React.FC = () => {
           }
 
           ctx.save();
-          // Draw translucent watery bubble body
           ctx.beginPath();
           ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
           ctx.fillStyle = b.color;
-          ctx.globalAlpha = b.opacity * 0.7;
+          ctx.globalAlpha = b.opacity * 0.75;
           ctx.fill();
 
-          // Draw emerald water bubble contour
           ctx.strokeStyle = b.strokeColor;
-          ctx.lineWidth = 1.2;
-          ctx.globalAlpha = b.opacity * 0.9;
+          ctx.lineWidth = 1.1;
+          ctx.globalAlpha = b.opacity * 0.95;
           ctx.stroke();
 
-          // Draw specular water reflection highlight (white shiny arc in top-left)
+          // Specular shine reflection
           ctx.beginPath();
           ctx.arc(
             b.x - b.radius * 0.35,
             b.y - b.radius * 0.35,
-            b.radius * 0.35,
+            b.radius * 0.32,
             Math.PI * 0.9,
             Math.PI * 1.6
           );
-          ctx.strokeStyle = 'rgba(255, 255, 255, 0.85)';
-          ctx.lineWidth = 1;
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
+          ctx.lineWidth = 0.9;
           ctx.stroke();
-
-          // Tiny secondary specular bottom-right reflection bead
-          ctx.beginPath();
-          ctx.arc(
-            b.x + b.radius * 0.35,
-            b.y + b.radius * 0.35,
-            Math.max(b.radius * 0.15, 0.6),
-            0,
-            Math.PI * 2
-          );
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
-          ctx.fill();
 
           ctx.restore();
         }
 
-        // 2. Render Splash Droplets
+        // Render Splash Droplets
         for (let i = splashDropletsRef.current.length - 1; i >= 0; i--) {
           const s = splashDropletsRef.current[i];
           s.x += s.vx;
           s.y += s.vy;
-          s.vy += 0.12; // Gravity pulling splash droplets back down
-          s.vx *= 0.96; // Air drag
-          s.opacity -= 0.024;
-          s.radius *= 0.97;
+          s.vy += 0.22; // Snappy gravity
+          s.vx *= 0.94;
+          s.opacity -= 0.045;
+          s.radius *= 0.96;
 
-          if (s.opacity <= 0 || s.radius < 0.5) {
+          if (s.opacity <= 0 || s.radius < 0.4) {
             splashDropletsRef.current.splice(i, 1);
             continue;
           }
@@ -303,14 +290,13 @@ export const CursorEffects: React.FC = () => {
           ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
           ctx.fillStyle = s.color;
           ctx.globalAlpha = s.opacity;
-          ctx.shadowBlur = 6;
+          ctx.shadowBlur = 5;
           ctx.shadowColor = '#10b981';
           ctx.fill();
 
-          // Specular white dot for droplet bead
           ctx.beginPath();
           ctx.arc(s.x - s.radius * 0.3, s.y - s.radius * 0.3, s.radius * 0.3, 0, Math.PI * 2);
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
           ctx.fill();
           ctx.restore();
         }
@@ -347,13 +333,13 @@ export const CursorEffects: React.FC = () => {
 
   return (
     <>
-      {/* 1. Ambient Green Lagoon & Caustic Water Glow */}
+      {/* 1. Ambient Green Lagoon Caustic Glow (Lightweight & Low Latency) */}
       <div
         ref={causticRef}
-        className="pointer-events-none fixed top-0 left-0 w-[520px] h-[520px] rounded-full blur-3xl z-10 opacity-70 transition-opacity duration-300"
+        className="pointer-events-none fixed top-0 left-0 w-[480px] h-[480px] rounded-full blur-3xl z-10 opacity-65"
         style={{
           willChange: 'transform',
-          background: 'radial-gradient(circle, rgba(16, 185, 129, 0.16) 0%, rgba(52, 211, 153, 0.09) 38%, rgba(5, 150, 105, 0.03) 65%, transparent 75%)',
+          background: 'radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(52, 211, 153, 0.08) 38%, transparent 70%)',
         }}
         aria-hidden="true"
       />
@@ -365,76 +351,90 @@ export const CursorEffects: React.FC = () => {
         aria-hidden="true"
       />
 
-      {/* 3. Fluid Pond / Water Surface Tension Follower Ring */}
+      {/* 3. Fluid Follower Ring with Silky Spring Transitions */}
       <div
         ref={ringRef}
-        className="pointer-events-none fixed top-0 left-0 z-40 -mt-6 -ml-6 transition-[width,height,border-color,background-color,transform] duration-200 ease-out"
+        className="pointer-events-none fixed top-0 left-0 z-40 -translate-x-1/2 -translate-y-1/2"
         style={{ willChange: 'transform' }}
         aria-hidden="true"
       >
         <div
-          className={`animate-water-droplet border transition-all duration-300 flex items-center justify-center relative ${
+          className={`animate-water-droplet rounded-full border transition-[width,height,border-color,background-color,box-shadow] duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center justify-center relative ${
             cursorClicked
-              ? 'w-9 h-9 scale-90 border-[#10b981] bg-[#10b981]/25 shadow-[0_0_18px_rgba(16,185,129,0.5)]'
+              ? 'w-7 h-7 border-[#10b981] bg-[#10b981]/30 shadow-[0_0_14px_rgba(16,185,129,0.6)]'
               : cursorHovered
               ? hoverType === 'button'
-                ? 'w-16 h-16 -translate-x-2 -translate-y-2 border-[#10b981] bg-[#10b981]/15 shadow-[0_0_24px_rgba(16,185,129,0.45)]'
-                : 'w-14 h-14 -translate-x-1 -translate-y-1 border-[#34d399] bg-[#34d399]/15 shadow-[0_0_18px_rgba(52,211,153,0.35)]'
-              : 'w-12 h-12 border-[#10b981]/60 bg-[#10b981]/10 shadow-[0_0_12px_rgba(16,185,129,0.25)]'
+                ? 'w-13 h-13 border-[#10b981] bg-[#10b981]/15 shadow-[0_0_20px_rgba(16,185,129,0.5)]'
+                : 'w-11 h-11 border-[#34d399] bg-[#34d399]/15 shadow-[0_0_16px_rgba(52,211,153,0.4)]'
+              : 'w-8 h-8 border-[#10b981]/70 bg-[#10b981]/10 shadow-[0_0_10px_rgba(16,185,129,0.25)]'
           }`}
         >
-          {/* Subtle concentric inner water ripple ring */}
-          <span className="w-6 h-6 rounded-full border border-[#34d399]/40 animate-ping opacity-40 pointer-events-none" />
+          {/* Faint internal liquid core wave */}
+          <span className="w-3.5 h-3.5 rounded-full border border-[#34d399]/50 animate-ping opacity-30 pointer-events-none" />
         </div>
       </div>
 
-      {/* 4. Sparkling 3D Green Water Droplet (Inner Cursor) */}
+      {/* 4. REDESIGNED PRIMARY DOT POINT: Aquatic Crystal Dewdrop with Smooth Liquid Transitions */}
       <div
         ref={dropletRef}
-        className="pointer-events-none fixed top-0 left-0 z-50 -mt-2 -ml-2 transition-transform duration-75"
+        className="pointer-events-none fixed top-0 left-0 z-50 -translate-x-1/2 -translate-y-1/2"
         style={{ willChange: 'transform' }}
         aria-hidden="true"
       >
         <div
-          className={`relative rounded-full transition-all duration-150 shadow-[0_3px_12px_rgba(16,185,129,0.5)] ${
+          className={`relative flex items-center justify-center transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] ${
             cursorClicked
-              ? 'w-5 h-3.5 scale-x-125 scale-y-75 bg-gradient-to-br from-[#6ee7b7] via-[#10b981] to-[#047857]'
+              ? 'scale-75 rotate-45'
               : cursorHovered
-              ? 'w-3.5 h-3.5 bg-gradient-to-br from-[#a7f3d0] via-[#10b981] to-[#059669] scale-110'
-              : 'w-4 h-4 bg-gradient-to-br from-[#6ee7b7] via-[#10b981] to-[#047857]'
+              ? 'scale-125'
+              : 'scale-100'
           }`}
         >
-          {/* 3D Liquid Specular Reflection Crescent */}
-          <span className="absolute top-0.5 left-0.5 w-1.5 h-1.5 rounded-full bg-white/90 shadow-sm pointer-events-none" />
-          <span className="absolute bottom-0.5 right-0.5 w-0.5 h-0.5 rounded-full bg-emerald-200/80 pointer-events-none" />
+          {/* Outer Translucent Water Meniscus Halo */}
+          <div
+            className={`rounded-full border transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center justify-center ${
+              cursorHovered
+                ? 'w-5 h-5 border-[#34d399] bg-[#34d399]/20 shadow-[0_0_12px_rgba(52,211,153,0.7)]'
+                : 'w-4 h-4 border-[#10b981]/80 bg-[#10b981]/10 shadow-[0_0_8px_rgba(16,185,129,0.4)]'
+            }`}
+          >
+            {/* Inner Emerald Jewel Water Bead */}
+            <div className="w-2 h-2 rounded-full bg-gradient-to-tr from-[#059669] via-[#10b981] to-[#6ee7b7] shadow-[0_0_6px_#10b981] relative">
+              {/* Brilliant Specular Light Reflection */}
+              <span className="absolute top-0.5 left-0.5 w-0.5 h-0.5 rounded-full bg-white shadow-[0_0_2px_white] pointer-events-none" />
+            </div>
+          </div>
+
+          {/* Micro-droplet pulse wave when hovering interactive links */}
+          {cursorHovered && (
+            <span className="absolute inset-0 rounded-full border border-[#34d399] animate-ping opacity-50 pointer-events-none" />
+          )}
         </div>
       </div>
 
-      {/* 5. Expanding Water Ripples on Movement & Clicks */}
+      {/* 5. Snappy Water Ripples on Click & Fast Movement (380ms duration) */}
       {ripples.map((ripple) => (
         <div
           key={ripple.id}
-          className="pointer-events-none fixed z-20 rounded-full animate-water-ripple"
+          className="pointer-events-none fixed z-20 rounded-full -translate-x-1/2 -translate-y-1/2 animate-water-ripple"
           style={{
             top: ripple.y,
             left: ripple.x,
             width: ripple.maxRadius * 2,
             height: ripple.maxRadius * 2,
-            marginTop: -ripple.maxRadius,
-            marginLeft: -ripple.maxRadius,
             border: `2px solid ${ripple.color}`,
-            boxShadow: `0 0 15px ${ripple.color}`,
+            boxShadow: `0 0 12px ${ripple.color}`,
           }}
           aria-hidden="true"
         />
       ))}
 
-      {/* 6. Green Water Theme Control Badge in bottom corner */}
+      {/* 6. Green Water Theme Control Badge */}
       <div className="fixed bottom-4 left-4 z-50">
         <button
           onClick={() => setEnabled(false)}
           className="group px-3 py-1.5 rounded-full bg-white/95 hover:bg-[#F5FFF9] backdrop-blur-md border border-emerald-300 text-[11px] font-semibold text-emerald-800 shadow-md flex items-center gap-1.5 transition-all hover:scale-105 active:scale-95"
-          title="Toggle green water ripple and bubble cursor"
+          title="Toggle green water cursor effects"
         >
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#10b981] opacity-75" />
@@ -442,7 +442,7 @@ export const CursorEffects: React.FC = () => {
           </span>
           <span className="flex items-center gap-1">
             <span className="text-xs">💧</span>
-            <span>Green Water FX: On</span>
+            <span>Water FX: On</span>
           </span>
         </button>
       </div>

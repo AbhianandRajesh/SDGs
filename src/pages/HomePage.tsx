@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import {
   Zap,
   Leaf,
@@ -27,23 +27,46 @@ export const HomePage: React.FC<HomePageProps> = ({
   activeTab,
   setActiveTab,
 }) => {
-  // 3D Parallax Tilt state driven by cursor movement
-  const [heroTilt, setHeroTilt] = useState({ rx: 0, ry: 0, tx: 0, ty: 0 });
+  // Ultra-smooth 3D Parallax Tilt ref (Zero React re-renders for buttery 120fps smoothness)
+  const heroOrbRef = useRef<HTMLDivElement>(null);
+  const chip1Ref = useRef<HTMLDivElement>(null);
+  const chip2Ref = useRef<HTMLDivElement>(null);
+  const chip3Ref = useRef<HTMLDivElement>(null);
+  const coreRef = useRef<HTMLDivElement>(null);
 
   const handleHeroMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!heroOrbRef.current) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
-    // Calculate subtle 3D rotational tilt and translation
-    const rx = -(y / rect.height) * 16;
-    const ry = (x / rect.width) * 16;
-    const tx = (x / rect.width) * 18;
-    const ty = (y / rect.height) * 18;
-    setHeroTilt({ rx, ry, tx, ty });
+    const rx = -(y / rect.height) * 14;
+    const ry = (x / rect.width) * 14;
+    const tx = (x / rect.width) * 15;
+    const ty = (y / rect.height) * 15;
+
+    heroOrbRef.current.style.transform = `rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
+    if (coreRef.current) {
+      coreRef.current.style.transform = `translateZ(30px) translate3d(${(tx * 0.5).toFixed(1)}px, ${(ty * 0.5).toFixed(1)}px, 0)`;
+    }
+    if (chip1Ref.current) {
+      chip1Ref.current.style.transform = `translateZ(50px) translate3d(${(tx * 1.3).toFixed(1)}px, ${(ty * 1.3).toFixed(1)}px, 0)`;
+    }
+    if (chip2Ref.current) {
+      chip2Ref.current.style.transform = `translateZ(45px) translate3d(${(-tx * 1.1).toFixed(1)}px, ${(-ty * 1.1).toFixed(1)}px, 0)`;
+    }
+    if (chip3Ref.current) {
+      chip3Ref.current.style.transform = `translateZ(40px) translate3d(${tx.toFixed(1)}px, ${ty.toFixed(1)}px, 0)`;
+    }
   };
 
   const handleHeroMouseLeave = () => {
-    setHeroTilt({ rx: 0, ry: 0, tx: 0, ty: 0 });
+    if (heroOrbRef.current) {
+      heroOrbRef.current.style.transform = `rotateX(0deg) rotateY(0deg)`;
+    }
+    if (coreRef.current) coreRef.current.style.transform = `translateZ(30px) translate3d(0, 0, 0)`;
+    if (chip1Ref.current) chip1Ref.current.style.transform = `translateZ(50px) translate3d(0, 0, 0)`;
+    if (chip2Ref.current) chip2Ref.current.style.transform = `translateZ(45px) translate3d(0, 0, 0)`;
+    if (chip3Ref.current) chip3Ref.current.style.transform = `translateZ(40px) translate3d(0, 0, 0)`;
   };
 
   return (
@@ -130,9 +153,9 @@ export const HomePage: React.FC<HomePageProps> = ({
               }}
             >
               <div
-                className="relative w-80 h-80 sm:w-96 sm:h-96 md:w-[420px] md:h-[420px] flex items-center justify-center transition-transform duration-150 ease-out"
+                ref={heroOrbRef}
+                className="relative w-80 h-80 sm:w-96 sm:h-96 md:w-[420px] md:h-[420px] flex items-center justify-center transition-transform duration-200 ease-out will-change-transform"
                 style={{
-                  transform: `rotateX(${heroTilt.rx}deg) rotateY(${heroTilt.ry}deg)`,
                   transformStyle: 'preserve-3d',
                 }}
               >
@@ -148,9 +171,10 @@ export const HomePage: React.FC<HomePageProps> = ({
 
                 {/* Core Circular Hero Element */}
                 <div
-                  className="relative w-64 h-64 sm:w-72 sm:h-72 rounded-full bg-white border-2 border-slate-100 shadow-2xl flex flex-col items-center justify-center p-6 text-center animate-gentle-pulse transition-transform duration-150"
+                  ref={coreRef}
+                  className="relative w-64 h-64 sm:w-72 sm:h-72 rounded-full bg-white border-2 border-slate-100 shadow-2xl flex flex-col items-center justify-center p-6 text-center animate-gentle-pulse transition-transform duration-200 ease-out will-change-transform"
                   style={{
-                    transform: `translateZ(30px) translate3d(${heroTilt.tx * 0.5}px, ${heroTilt.ty * 0.5}px, 0)`,
+                    transform: `translateZ(30px)`,
                   }}
                 >
                   
@@ -175,9 +199,10 @@ export const HomePage: React.FC<HomePageProps> = ({
 
                 {/* Floating Stat Chip 1: Top Right */}
                 <div
-                  className="absolute top-2 right-0 sm:right-2 bg-white/95 backdrop-blur-md py-2 px-3.5 rounded-xl border border-slate-100 shadow-subtle flex items-center gap-2.5 transition-transform duration-150 hover:scale-105"
+                  ref={chip1Ref}
+                  className="absolute top-2 right-0 sm:right-2 bg-white/95 backdrop-blur-md py-2 px-3.5 rounded-xl border border-slate-100 shadow-subtle flex items-center gap-2.5 transition-transform duration-200 ease-out will-change-transform hover:scale-105"
                   style={{
-                    transform: `translateZ(50px) translate3d(${heroTilt.tx * 1.4}px, ${heroTilt.ty * 1.4}px, 0)`,
+                    transform: `translateZ(50px)`,
                   }}
                 >
                   <div className="w-7 h-7 rounded-lg bg-[#087FCE]/10 text-[#087FCE] flex items-center justify-center">
@@ -191,9 +216,10 @@ export const HomePage: React.FC<HomePageProps> = ({
 
                 {/* Floating Stat Chip 2: Bottom Left */}
                 <div
-                  className="absolute bottom-4 left-0 sm:left-2 bg-white/95 backdrop-blur-md py-2 px-3.5 rounded-xl border border-slate-100 shadow-subtle flex items-center gap-2.5 transition-transform duration-150 hover:scale-105"
+                  ref={chip2Ref}
+                  className="absolute bottom-4 left-0 sm:left-2 bg-white/95 backdrop-blur-md py-2 px-3.5 rounded-xl border border-slate-100 shadow-subtle flex items-center gap-2.5 transition-transform duration-200 ease-out will-change-transform hover:scale-105"
                   style={{
-                    transform: `translateZ(45px) translate3d(${-heroTilt.tx * 1.2}px, ${-heroTilt.ty * 1.2}px, 0)`,
+                    transform: `translateZ(45px)`,
                   }}
                 >
                   <div className="w-7 h-7 rounded-lg bg-[#16A34A]/10 text-[#16A34A] flex items-center justify-center">
@@ -207,9 +233,10 @@ export const HomePage: React.FC<HomePageProps> = ({
 
                 {/* Floating Stat Chip 3: Bottom Right */}
                 <div
-                  className="absolute bottom-1 right-8 hidden sm:flex bg-white/95 backdrop-blur-md py-1.5 px-3 rounded-xl border border-slate-100 shadow-subtle items-center gap-2 transition-transform duration-150"
+                  ref={chip3Ref}
+                  className="absolute bottom-1 right-8 hidden sm:flex bg-white/95 backdrop-blur-md py-1.5 px-3 rounded-xl border border-slate-100 shadow-subtle items-center gap-2 transition-transform duration-200 ease-out will-change-transform"
                   style={{
-                    transform: `translateZ(40px) translate3d(${heroTilt.tx}px, ${heroTilt.ty}px, 0)`,
+                    transform: `translateZ(40px)`,
                   }}
                 >
                   <Smartphone className="w-3.5 h-3.5 text-[#087FCE]" />

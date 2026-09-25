@@ -112,13 +112,13 @@ body {
 @keyframes waterRippleExpand {
   0% {
     transform: scale(0.15);
-    opacity: 0.9;
+    opacity: 0.85;
   }
-  60% {
+  50% {
     opacity: 0.45;
   }
   100% {
-    transform: scale(3.2);
+    transform: scale(2.8);
     opacity: 0;
   }
 }
@@ -130,16 +130,16 @@ body {
   }
   33% {
     border-radius: 44% 56% 52% 48% / 52% 44% 56% 48%;
-    transform: scale(1.06, 0.94);
+    transform: scale(1.05, 0.95);
   }
   66% {
     border-radius: 56% 44% 46% 54% / 46% 56% 44% 54%;
-    transform: scale(0.95, 1.05);
+    transform: scale(0.96, 1.04);
   }
 }
 
 .animate-water-ripple {
-  animation: waterRippleExpand 900ms cubic-bezier(0.12, 0.7, 0.35, 1) forwards;
+  animation: waterRippleExpand 380ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-water-droplet {
